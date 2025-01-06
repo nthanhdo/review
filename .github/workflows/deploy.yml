@@ -28,20 +28,21 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/nthanhdo/review.git
           
-          # Tạo thư mục docs nếu nó không tồn tại
+          # Tạo thư mục docs nếu không có
           mkdir -p docs
           
-          # Sao chép tất cả các file từ thư mục build vào docs/
-          cp -r out/* docs/  # Hoặc thay thế với thư mục build chính xác của bạn
+          # Sao chép file build vào docs/
+          cp -r out/* docs/
           
+          cd docs
           git add -A
           
           # Kiểm tra sự thay đổi và commit
           git diff --quiet || git commit -m "Deploy to GitHub Pages"
           
           # Push lên GitHub Pages
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/nthanhdo/review.git
           git push origin master
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
