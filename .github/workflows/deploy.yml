@@ -44,5 +44,6 @@ jobs:
           # Push lên GitHub Pages
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/nthanhdo/review.git
           git push origin master
+          echo ${{ secrets.GH_TOKEN }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
